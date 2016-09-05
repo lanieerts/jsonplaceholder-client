@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Col } from 'react-bootstrap';
 import Sidebar from 'react-sidebar';
+
 
 class About extends React.Component {
   render() {
@@ -12,17 +14,18 @@ class About extends React.Component {
         right: 0,
         bottom: 0,
         overflow: 'hidden',
+        height: window.innerHeight
       },
       sidebar: {
-        zIndex: 2,
+        zIndex: 0,
         position: 'absolute',
         top: 0,
         bottom: 0,
         transition: 'transform .3s ease-out',
-        WebkitTransition: '-webkit-transform .3s ease-out',
+        WebkitTransition: '-webkit-transform ease-out',
         willChange: 'transform',
-        overflowY: 'hidden',
         marginRight: 50,
+        height: 500
       },
       content: {
         position: 'relative',
@@ -30,8 +33,7 @@ class About extends React.Component {
         left: 0,
         right: 0,
         bottom: 0,
-        overflow: 'auto',
-        transition: 'left .3s ease-out, right .3s ease-out',
+        transition: 'left ease-out , right ease-out',
       },
       overlay: {
         zIndex: 1,
@@ -42,7 +44,7 @@ class About extends React.Component {
         bottom: 0,
         opacity: 0,
         visibility: 'hidden',
-        transition: 'opacity .3s ease-out',
+        transition: 'opacity ease-out',
         backgroundColor: 'rgba(0,0,0,.3)',
       },
       dragHandle: {
@@ -58,8 +60,10 @@ class About extends React.Component {
         <h1 className="text-center"> ABOUT PAGE </h1>
         <Sidebar sidebar={<b> <Link to="/about/issues"> Sidebar Content </Link> </b>}
                  docked={true} shadow={false} styles={sidebarStyle}>
-          TESTINGGGGGGGGGGGG
+          <Col md={10}>
+          TESTINGGGGGGGGGGGGGGG
           {this.props.children}
+          </Col>
         </Sidebar>
       </div>
     )
