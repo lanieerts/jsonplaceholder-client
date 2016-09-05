@@ -1,10 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { readLanguages } from './../../actions';
 import { Col } from 'react-bootstrap';
 import Sidebar from 'react-sidebar';
+import Inspector from 'react-inspector';
 
 
 class About extends React.Component {
+
+  componentWillMount() {
+    this.props.readLanguages();
+  }
+  
   render() {
     let sidebarStyle = {
       root: {
@@ -57,11 +66,16 @@ class About extends React.Component {
 
     return (
       <div>
-        <h1 className="text-center"> ABOUT PAGE </h1>
-        <Sidebar sidebar={<b> <Link to="/about/issues"> Sidebar Content </Link> </b>}
-                 docked={true} shadow={false} styles={sidebarStyle}>
+        <h1> ABOUT PAGE </h1>
+        <h2> USING LANGUAGES </h2>
+        <Inspector data={this.props.languages} />
+        <Sidebar sidebar={
+          <div>
+            <p> <Link to="/about/issues"> Issues </Link> </p>
+            <p> <Link to="/about/pulls"> Full Request </Link> </p>
+          </div>} docked={true} shadow={false} styles={sidebarStyle}>
           <Col md={10}>
-          TESTINGGGGGGGGGGGGGGG
+          TESTINGGGGGGGGGGGasdfasdf
           {this.props.children}
           </Col>
         </Sidebar>
@@ -70,4 +84,14 @@ class About extends React.Component {
   }
 }
 
-export default About;
+function mapStateToProps(state) {
+  return {
+    languages: state.github.languages
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ readLanguages }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(About);
