@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { readLanguages } from './../../actions';
-import { Col } from 'react-bootstrap';
+import { Panel, Col, Row } from 'react-bootstrap';
 import Sidebar from 'react-sidebar';
 import Inspector from 'react-inspector';
 
@@ -13,7 +13,7 @@ class About extends React.Component {
   componentWillMount() {
     this.props.readLanguages();
   }
-  
+
   render() {
     let sidebarStyle = {
       root: {
@@ -23,7 +23,6 @@ class About extends React.Component {
         right: 0,
         bottom: 0,
         overflow: 'hidden',
-        height: window.innerHeight
       },
       sidebar: {
         zIndex: 0,
@@ -66,16 +65,23 @@ class About extends React.Component {
 
     return (
       <div>
-        <h1> ABOUT PAGE </h1>
-        <h2> USING LANGUAGES </h2>
-        <Inspector data={this.props.languages} />
+        <Row>
+          <h1> ABOUT PAGE </h1>
+          <h2> USING LANGUAGES </h2>
+          <Inspector data={this.props.languages} />
+          { Object.keys(this.props.languages).map((language) =>
+            <Col key={language} md={3}>
+              <Panel bsStyle="danger" header={language}> {this.props.languages[language]} </Panel>
+            </Col>
+          )}
+        </Row>
         <Sidebar sidebar={
           <div>
             <p> <Link to="/about/issues"> Issues </Link> </p>
             <p> <Link to="/about/pulls"> Full Request </Link> </p>
           </div>} docked={true} shadow={false} styles={sidebarStyle}>
           <Col md={10}>
-          TESTINGGGGGGGGGGGasdfasdf
+            ↓CHILDREN CONTENT↓
           {this.props.children}
           </Col>
         </Sidebar>
