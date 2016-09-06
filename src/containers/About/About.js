@@ -3,10 +3,10 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { readLanguages } from './../../actions';
-import { Panel, Col, Row } from 'react-bootstrap';
+import { Row, Col } from 'react-grid-system';
+import { Card, CardHeader, CardText } from 'material-ui';
 import Sidebar from 'react-sidebar';
 import Inspector from 'react-inspector';
-
 
 class About extends React.Component {
 
@@ -71,20 +71,23 @@ class About extends React.Component {
           <Inspector data={this.props.languages} />
           { Object.keys(this.props.languages).map((language) =>
             <Col key={language} md={3}>
-              <Panel bsStyle="danger" header={language}> {this.props.languages[language]} </Panel>
+              <Card>
+                <CardHeader title={language}> </CardHeader> <CardText> {this.props.languages[language]} </CardText>
+              </Card>
             </Col>
           )}
         </Row>
+        <Row>
         <Sidebar sidebar={
           <div>
-            <p> <Link to="/about/issues"> Issues </Link> </p>
-            <p> <Link to="/about/pulls"> Full Request </Link> </p>
+            <Link to="/about/issues"> Issues </Link>
           </div>} docked={true} shadow={false} styles={sidebarStyle}>
           <Col md={10}>
             ↓CHILDREN CONTENT↓
           {this.props.children}
           </Col>
         </Sidebar>
+          </Row>
       </div>
     )
   }
